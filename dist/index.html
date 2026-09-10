@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08121f">
+<meta name="description" content="An English emotion classifier trained on simulated activity from 499 recorded MaleCNS fruit-fly neurons.">
+<title>FLY/READ — a trained fly circuit</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="./">FLY<span>/</span>READ</a>
+  <span class="header-note">MaleCNS · text experiment</span>
+  <a href="#method">Model & results</a>
+  <span id="status" role="status">Loading trained model…</span>
+</header>
+<main>
+  <div class="intro">
+    <div><p class="eyebrow">Recorded fly wiring. Learned text readout.</p><h1>A sentence through <em>499 neurons.</em></h1></div>
+    <p>Enter a message. Watch the reconstructed fly circuit respond, then inspect the emotion its trained readout predicts.</p>
+  </div>
+  <section class="workspace" aria-label="Text classification experiment">
+    <div class="input-panel">
+      <form id="reader-form">
+        <div class="panel-top"><span class="eyebrow">01 / Text input</span><span class="meta">English · 96 tokens max</span></div>
+        <label for="message">What does your sentence carry?</label>
+        <textarea id="message" maxlength="4000" rows="5" spellcheck="false">I feel happy and excited about tomorrow.</textarea>
+        <div class="input-meta"><span id="char-count">0 / 4,000</span><span>Ctrl / ⌘ + Enter</span></div>
+        <div class="samples" aria-label="Example sentences">
+          <button type="button" data-sample="I feel happy and excited about tomorrow.">Joy</button>
+          <button type="button" data-sample="I feel miserable and lonely.">Sadness</button>
+          <button type="button" data-sample="I feel scared and anxious.">Fear</button>
+          <button type="button" data-sample="I am furious about this.">Anger</button>
+          <button type="button" data-sample="I feel loved and cared for.">Love</button>
+          <button type="button" data-sample="I feel surprised and amazed.">Surprise</button>
+        </div>
+        <button class="primary" id="classify" type="submit" disabled>Classify text <span aria-hidden="true">↗</span></button>
+        <p class="small">Inference runs on this device. Your text is never sent to a server.</p>
+      </form>
+      <div class="classification" aria-live="polite" aria-atomic="true">
+        <div class="panel-top"><span class="eyebrow">02 / Learned readout</span><span class="meta">6 classes</span></div>
+        <div class="prediction"><h2 id="prediction">Loading…</h2><span id="top-score">—</span></div>
+        <p id="result-note">Loading the fixed circuit and trained weights.</p>
+        <div id="scores" class="scores" aria-label="Raw classification scores"></div>
+        <p class="small">Raw ridge scores: higher ranks first. These values are not probabilities. The dataset has no neutral class.</p>
+        <p id="warning" role="status"></p>
+        <p id="error" role="alert" hidden></p>
+      </div>
+    </div>
+    <div class="brain-panel">
+      <div class="panel-top"><div><span class="eyebrow">03 / Circuit activity</span><h2>The recorded branches</h2></div><div class="meta">499 neurons<br>15,865 connections</div></div>
+      <div class="brain-stage">
+        <canvas id="brain" tabindex="0" role="img" aria-label="Reconstructed MaleCNS neuron branches colored by simulated activity. Drag to rotate; arrow keys rotate; plus and minus zoom."></canvas>
+        <div class="canvas-message" id="canvas-message">Loading neuron anatomy…</div>
+        <div class="brain-overlay"><span id="activity-state">Ready</span><button type="button" id="reset-view">Reset view</button></div>
+        <div class="brain-bottom"><span>Drag to rotate · scroll to zoom</span><span class="color-key">Low <i></i> High |activity|</span></div>
+      </div>
+      <div class="playback">
+        <button type="button" id="play" disabled aria-label="Play circuit activity">Play trace</button>
+        <label class="sr-only" for="progress">Token progress</label>
+        <input id="progress" type="range" min="0" max="1" value="0" step="1" disabled>
+        <output id="token-label" for="progress">—</output>
+      </div>
+      <div class="trace-panel">
+        <div class="panel-top"><span>499 neurons × token steps · rows averaged</span><span class="meta">Absolute activity · fixed scale 0–0.8</span></div>
+        <canvas id="heatmap" role="img" aria-label="Heatmap of every neuron's actual simulated activity at each token step"></canvas>
+        <div id="tokens" class="tokens" aria-label="Analyzed tokens"></div>
+      </div>
+      <div class="intervention">
+        <div><label for="silence">Silence neurons</label><p class="small">Remove the most heavily weighted readout neurons and rerun the same text. No retraining.</p></div>
+        <div class="silence-control"><input id="silence" type="range" min="0" max="200" step="10" value="0" disabled><output id="silence-label" for="silence">0 / 499</output><button id="restore" type="button" disabled>Restore</button></div>
+      </div>
+      <p class="anatomy-note">Real MaleCNS centerlines; sampled for drawing. All 499 neurons and all retained connections participate in computation. Colors show simulated activity, not biological “emotion cells.”</p>
+    </div>
+  </section>
+  <section id="method" class="methods">
+    <div class="method-intro"><p class="eyebrow">An experiment you can inspect</p><h2>What actually learned?</h2><p>The supervised training fitted a six-class linear readout to activity from this fixed fly circuit. A label-free text encoder turns words into inputs. The fly connections are the published MaleCNS subset used by Oruk, preserved byte-for-byte in the recurrent matrix.</p>
+    <p>The input pathway and neuron dynamics are mathematical approximations. This is a trained computational model using recorded fly anatomy, not a living brain learning language.</p>
+    <div class="pipeline" aria-label="Model computation"><span>Words<small>train-fitted, label-free encoder</small></span><b>→</b><span>Fly circuit<small>499 fixed recurrent units</small></span><b>→</b><span>Emotion<small>trained linear readout</small></span></div>
+    <p class="small">Only neuron activity reaches the deployed classifier; there is no direct text shortcut. Uses an English social-media research dataset. Short messages, sarcasm, other languages, and neutral text can be misclassified.</p>
+    </div>
+    <div class="results-panel"><div class="panel-top"><h2>Held-out results</h2><a href="./model/report.json" target="_blank">Full report ↗</a></div><p id="split-info">Training / validation / test counts are loading.</p>
+      <div class="table-scroll"><table><thead><tr><th scope="col">Model</th><th scope="col">Accuracy</th><th scope="col">Macro-F1</th></tr></thead><tbody id="benchmark"></tbody></table></div>
+      <p id="benchmark-note" class="small"></p>
+      <p class="small">One seed, one circuit. Settings selected on validation data; exact duplicate token sequences removed across official splits. No author IDs are available. Test results do not establish an advantage for biological wiring.</p>
+    </div>
+  </section>
+  <section class="sources">
+    <p class="eyebrow">Data & attribution</p>
+    <p>MaleCNS v1.0 — FlyEM at HHMI Janelia, University of Cambridge, MRC Laboratory of Molecular Biology, and Google Research. CC BY 4.0. Circuit selection and released anatomy: Nathan Roll / Oruk. Adaptation here: text encoder, new trained readout, and sampled anatomy playback.</p>
+    <div><a href="https://male-cns.janelia.org/download/" target="_blank" rel="noreferrer">MaleCNS data ↗</a><a href="https://oruk.ai/research/we-taught-a-fruit-fly-to-read-human-emotion" target="_blank" rel="noreferrer">Oruk experiment ↗</a><a href="https://huggingface.co/datasets/dair-ai/emotion" target="_blank" rel="noreferrer">Text dataset ↗</a><a href="https://huggingface.co/spaces/Xenova/fruit-fly-simulation" target="_blank" rel="noreferrer">Xenova simulation ↗</a><a href="./model/NOTICE.txt" target="_blank">Provenance & limitations ↗</a></div>
+    <p class="small">Text dataset: CARER, Saravia et al. (2018), distributed by DAIR.AI for research and education. The original 499-cell export exposes local cell indices, not original MaleCNS body IDs. This page does not claim whole-brain simulation.</p>
+  </section>
+</main>
+<footer><span>FLY/READ · trained text experiment</span><span>Local inference · no text storage</span></footer>
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>

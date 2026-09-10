@@ -1,0 +1,42 @@
+FLY/READ — research text classifier
+
+Recorded anatomy and connectivity: MaleCNS v1.0. FlyEM at HHMI Janelia,
+University of Cambridge, MRC Laboratory of Molecular Biology, and Google Research.
+Data license: Creative Commons Attribution 4.0
+https://creativecommons.org/licenses/by/4.0/
+https://male-cns.janelia.org/download/
+
+499-cell circuit selection and published geometry: Nathan Roll / Oruk,
+https://oruk.ai/research/we-taught-a-fruit-fly-to-read-human-emotion
+Original binary SHA-256:
+f6750dcd1312b8794480130571095ad097ccb93b17fcefe2578f1811bfdbe9b8
+Only the published recurrent connectivity is used from the speech model.
+Its audio projection, trained speech readout, labels and audio are not used.
+Recurrent weights retained unchanged; neuron indices remain in the release order.
+The public export does not provide original MaleCNS body IDs. Local indices
+0..498 must never be described as biological dataset identifiers.
+Anatomy: every eighth released line segment per neuron retained for drawing;
+this further sampling has no effect on computation. All 499 cells are retained.
+
+New adaptation: English text tokenization, label-free TF-IDF/LSA embeddings,
+fixed random projection, a newly fitted text readout, and browser inference.
+The dynamic leak coefficient for text is 0.35. Original recurrent spectral
+scaling (0.9) and signs are retained. These are simplified simulated units,
+not validated physiological dynamics or a living fly learning English.
+
+Text dataset: Saravia et al. (2018), CARER: Contextualized Affect
+Representations for Emotion Recognition, distributed by DAIR.AI.
+https://aclanthology.org/D18-1404/
+https://huggingface.co/datasets/dair-ai/emotion
+Revision: cab853a1dbdf4c42c2b3ef2173804746df8825fe
+Dataset card limits use to educational and research purposes.
+Raw training, validation, and test sentences are not distributed in this app.
+Labels are distant/noisy annotations; this is not a clinical or mental-state test.
+
+Inspiration for local simulation controls: Xenova / Neural Canvas
+https://huggingface.co/spaces/Xenova/fruit-fly-simulation
+No Xenova source code or body assets are bundled here.
+
+See report.json for reproducible split counts, source hashes, measured results,
+control models, confusion matrices, and limitations. Only one circuit and seed
+were used. Scores are raw ridge outputs, not calibrated probabilities.
