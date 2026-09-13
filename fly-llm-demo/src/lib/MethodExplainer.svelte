@@ -54,6 +54,24 @@
     </article>
   </div>
 
+  <div class="context-grid">
+    <article class="copy-card reservoir-card">
+      <p class="eyebrow">Reservoir computing</p>
+      <h2>Train the interfaces, keep the reservoir</h2>
+      <p>Reservoir computing separates memory from learning. The reservoir is a large recurrent dynamical system that turns a short history of inputs into a rich, changing state. Its internal wiring can stay fixed; training only learns how to enter the reservoir and how to read useful answers back out.</p>
+      <div class="bullet"><span>01</span><p><b>Mix.</b> The fixed fly connectome spreads each new input through many paths.</p></div>
+      <div class="bullet"><span>02</span><p><b>Echo.</b> Leaky recurrence keeps a fading trace of recent tokens in the state.</p></div>
+      <div class="bullet"><span>03</span><p><b>Read.</b> A linear head learns which state patterns predict the next token.</p></div>
+    </article>
+    <article class="copy-card release-card">
+      <p class="eyebrow">Why the fly connectome matters now</p>
+      <h2>Google Research released the male fly map last week</h2>
+      <p>On <b>September 3, 2026</b>, Google Research, HHMI Janelia, and collaborators announced a complete wiring map of an adult male <i>Drosophila melanogaster</i> brain and central nervous system. The MaleCNS release covers more than 166,000 neurons and makes the structural map available for the research community.</p>
+      <p>This demo is a focused language-model experiment built from a 49,393-neuron central-brain subset. It uses the new connectomics direction as inspiration; it is not claiming to simulate every neuron in the released MaleCNS map.</p>
+      <a class="source-link" href="https://research.google/blog/a-connectomics-milestone-mapping-the-complete-male-fruit-fly-brain/" target="_blank" rel="noreferrer">Read the Google Research announcement ↗</a>
+    </article>
+  </div>
+
   <div class="screens">
     <div class="section-heading">
       <div><p class="eyebrow">Screenshots from the live interface</p><h2>What to watch while it writes</h2></div>
@@ -105,8 +123,10 @@
   .stat strong { font-size: 20px; letter-spacing: -.03em; }
   .stat span { color: var(--muted); line-height: 1.25; font-size: 11px; }
   .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .context-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; }
   .copy-card, .flow-card { border: 1px solid var(--line); border-radius: 18px; padding: 20px; background: var(--panel); box-shadow: 0 8px 24px rgba(31,41,55,.04); }
   .copy-card p:not(.eyebrow), .flow-card p:not(.eyebrow) { color: #4b5563; font-size: 13px; line-height: 1.58; }
+  .bullet { display: grid; grid-template-columns: 27px 1fr; gap: 10px; align-items: start; margin-top: 11px; }.bullet > span { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; background: #eef2ff; color: #4f46e5; font: 700 10px ui-monospace,monospace; }.bullet p { margin: 3px 0 0; }.release-card { background: linear-gradient(145deg,#fff,#fffaf0); }.source-link { display: inline-flex; margin-top: 4px; color: #8a5a15; font-size: 12px; font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }.source-link:hover { color: #5d3b0b; }
   .equation { background: #191a1d; color: #f9fafb; border-radius: 11px; padding: 13px 14px; overflow-x: auto; margin: 14px 0; font-size: 12px; }
   .flow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 20px 0 15px; }
   .flow-node { flex: 1 1 82px; min-width: 80px; border: 1px solid #dbe1e8; border-radius: 12px; padding: 10px 8px; background: #f8fafc; display: grid; gap: 4px; text-align: center; }
@@ -117,6 +137,6 @@
   .eyes-shot { padding: 13px 13px 0; background: radial-gradient(circle at 50% 30%,#fff,#edf0f4); }.eye-head { display: flex; align-items: center; justify-content: center; height: 130px; }.eye { width: 106px; height: 110px; border-radius: 50%; background: radial-gradient(circle at 35% 28%, #f7a36f 0 8%, #a83e25 36%, #501b18 78%); border: 3px solid #331512; box-shadow: inset -10px -8px 18px rgba(0,0,0,.35), 0 8px 12px rgba(31,41,55,.2); position: relative; }.eye::after { content: ''; position: absolute; inset: 7px; border-radius: 50%; opacity: .7; background-image: radial-gradient(circle, rgba(39,12,8,.8) 0 2px, transparent 2.5px); background-size: 11px 11px; }.face { width: 60px; height: 104px; margin: 0 -8px; border-radius: 45% 45% 36% 36%; background: linear-gradient(90deg,#876848,#c2a27c 45%,#7d5c40); box-shadow: inset 7px 0 9px rgba(255,255,255,.16), inset -8px 0 11px rgba(0,0,0,.2); }.eye-readout { display: grid; grid-template-columns: 1fr 1fr; text-align: center; gap: 2px; font-size: 8px; color: #6b4c36; }.eye-readout span { color: #9ca3af; font-size: 9px; }.window-strip { margin: 12px -13px 0; padding: 8px 10px; border-top: 1px solid var(--line); background: rgba(255,255,255,.75); color: #6b7280; font: 9px ui-monospace,monospace; white-space: nowrap; overflow: hidden; }
   figcaption { padding: 10px 2px 0; color: #6b7280; font-size: 11px; line-height: 1.45; }.shot b { color: #374151; }.scope { border-left: 3px solid #d97706; padding: 11px 14px; background: #fffbeb; color: #5b4a2f; font-size: 12px; line-height: 1.55; border-radius: 0 10px 10px 0; }.end-cta { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); }.end-cta div { display: grid; gap: 3px; }.end-cta span { color: var(--muted); font-size: 12px; }.end-cta .try-button { margin-top: 0; flex-shrink: 0; }
   @keyframes glow { 50% { opacity: .35; transform: scale(.72); } }
-  @media (max-width: 980px) { .method-hero, .method-grid, .shot-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 980px) { .method-hero, .method-grid, .context-grid, .shot-grid { grid-template-columns: 1fr; } }
   @media (max-width: 560px) { .end-cta { align-items: flex-start; flex-direction: column; } }
 </style>
