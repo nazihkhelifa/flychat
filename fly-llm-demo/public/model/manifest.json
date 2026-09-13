@@ -1,5 +1,5 @@
 {
-  "checkpoint": "C:\\Users\\Mini Grendazer\\Documents\\REPO\\flychat\\artifacts\\fly-llm\\final.pt",
+  "checkpoint": "artifacts/fly-llm/final.pt",
   "files_mb": {
     "config.json": 0.0,
     "edges.json": 0.0,
