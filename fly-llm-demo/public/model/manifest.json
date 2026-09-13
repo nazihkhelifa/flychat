@@ -6,7 +6,7 @@
     "edges_offsets.i32": 0.2,
     "edges_src.u16": 18.1,
     "edges_val.i16": 18.1,
-    "fly_step.onnx": 211.74,
+    "fly_step_trained_dq8.onnx": 51.72,
     "manifest.json": 0.0,
     "tokenizer.json": 0.06,
     "tokenizer_config.json": 0.0
