@@ -1,0 +1,29 @@
+{
+  "architectures": [
+    "FlyForCausalLM"
+  ],
+  "auto_map": {
+    "AutoConfig": "configuration_fly.FlyConfig",
+    "AutoModelForCausalLM": "modeling_fly.FlyForCausalLM"
+  },
+  "bos_token_id": 1,
+  "connectome": "MaleCNS v1.0 central brain (cb_sensory, visual_projection, cb_intrinsic, ascending_neuron, descending_neuron)",
+  "d_embed": 128,
+  "delay_k": 8,
+  "dtype": "float32",
+  "eos_token_id": 2,
+  "input_scale": 1.0,
+  "leak": 0.9,
+  "model_type": "fly",
+  "n_edges": 9050172,
+  "n_in": 14069,
+  "n_neurons": 49393,
+  "n_out": 49393,
+  "pad_token_id": 0,
+  "rec_target": 5.0,
+  "spectral_radius": 0.99,
+  "tie_word_embeddings": false,
+  "transformers_version": "5.17.0",
+  "use_cache": true,
+  "vocab_size": 1024
+}

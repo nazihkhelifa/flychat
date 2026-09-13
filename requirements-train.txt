@@ -1,0 +1,8 @@
+# Training Fly-LLM (CPU works for tests; CUDA is strongly recommended for the 49k model)
+torch
+transformers>=4.44.0
+datasets
+huggingface_hub
+safetensors
+tokenizers
+pytest

@@ -1,0 +1,11 @@
+{
+  "n_neurons": 49393,
+  "n_edges": 9050172,
+  "val_scale": 0.00026207344490103424,
+  "layout": "incoming CSR: for target j, edges e in [offsets[j], offsets[j+1]) come from src[e] with weight val[e] * val_scale",
+  "files": {
+    "offsets": "edges_offsets.i32",
+    "src": "edges_src.u16",
+    "val": "edges_val.i16"
+  }
+}

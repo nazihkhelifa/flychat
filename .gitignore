@@ -5,3 +5,16 @@ data/
 artifacts/
 *.zip
 .env
+node_modules/
+.hf-cache/
+fly-llm-demo/dist/
+fly-llm-demo/.vite/
+fly-llm-demo/public/model/*.onnx
+fly-llm-demo/public/model/edges_*
+fly-llm-demo/public/model/tokenizer.json
+fly-llm-demo/public/model/tokenizer_config.json
+fly-llm-demo/public/model/manifest.json
+
+# Nested repository metadata moved out when this project was consolidated
+fly-llm-demo/.git.nested-backup
+fly-llm-hf/.git.nested-backup
