@@ -1,6 +1,9 @@
 export const ONNX_REPO = 'ngxson/fly-llm-onnx';
 export const MODEL_REPO = 'ngxson/fly-llm-hf';
-export const LOCAL_MODEL = true;
+// Vercel serves the frontend while the browser downloads the published, quantized
+// model and connectome assets from Hugging Face. Set to true only for a fully
+// self-contained local build (which is too large for a normal Vercel deployment).
+export const LOCAL_MODEL = false;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const R = LOCAL_MODEL ? `${base}model/` : `https://huggingface.co/${ONNX_REPO}/resolve/main/`;
 export const TOKENIZER_ID = LOCAL_MODEL ? `${base}model` : ONNX_REPO;
