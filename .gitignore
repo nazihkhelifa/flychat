@@ -15,6 +15,15 @@ fly-llm-demo/public/model/tokenizer.json
 fly-llm-demo/public/model/tokenizer_config.json
 fly-llm-demo/public/model/manifest.json
 
+# Keep the quantized browser export of the locally trained checkpoint in GitHub.
+!fly-llm-demo/public/model/fly_step_trained_dq8.onnx
+!fly-llm-demo/public/model/edges_offsets.i32
+!fly-llm-demo/public/model/edges_src.u16
+!fly-llm-demo/public/model/edges_val.i16
+!fly-llm-demo/public/model/manifest.json
+!fly-llm-demo/public/model/tokenizer.json
+!fly-llm-demo/public/model/tokenizer_config.json
+
 # Nested repository metadata moved out when this project was consolidated
 fly-llm-demo/.git.nested-backup
 fly-llm-hf/.git.nested-backup

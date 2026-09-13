@@ -1,0 +1,14 @@
+{
+  "checkpoint": "C:\\Users\\Mini Grendazer\\Documents\\REPO\\flychat\\artifacts\\fly-llm\\final.pt",
+  "files_mb": {
+    "config.json": 0.0,
+    "edges.json": 0.0,
+    "edges_offsets.i32": 0.2,
+    "edges_src.u16": 18.1,
+    "edges_val.i16": 18.1,
+    "fly_step.onnx": 211.74,
+    "manifest.json": 0.0,
+    "tokenizer.json": 0.06,
+    "tokenizer_config.json": 0.0
+  }
+}

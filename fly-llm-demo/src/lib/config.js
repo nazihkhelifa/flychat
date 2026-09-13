@@ -1,15 +1,15 @@
 export const ONNX_REPO = 'ngxson/fly-llm-onnx';
 export const MODEL_REPO = 'ngxson/fly-llm-hf';
-// Vercel serves the frontend while the browser downloads the published, quantized
-// model and connectome assets from Hugging Face. Set to true only for a fully
-// self-contained local build (which is too large for a normal Vercel deployment).
-export const LOCAL_MODEL = false;
+// This build uses the user's trained checkpoint, exported and quantized for the
+// browser. The model is served as a static asset from this deployment; it is not
+// the similarly named public Hugging Face checkpoint.
+export const LOCAL_MODEL = true;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const R = LOCAL_MODEL ? `${base}model/` : `https://huggingface.co/${ONNX_REPO}/resolve/main/`;
 export const TOKENIZER_ID = LOCAL_MODEL ? `${base}model` : ONNX_REPO;
 export const FILES = LOCAL_MODEL
   ? {
-      onnx: { url: R + 'fly_step.onnx', mb: 212 },
+      onnx: { url: R + 'fly_step_trained_dq8.onnx', mb: 52 },
       offsets: { url: R + 'edges_offsets.i32', mb: 0.2 },
       src: { url: R + 'edges_src.u16', mb: 18 },
       val: { url: R + 'edges_val.i16', mb: 18 },

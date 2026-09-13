@@ -2,6 +2,15 @@ node_modules/
 dist/
 .vite/
 .env
-public/model/
+public/model/*
+!public/model/config.json
+!public/model/edges.json
+!public/model/manifest.json
+!public/model/tokenizer.json
+!public/model/tokenizer_config.json
+!public/model/fly_step_trained_dq8.onnx
+!public/model/edges_offsets.i32
+!public/model/edges_src.u16
+!public/model/edges_val.i16
 
 .vercel
