@@ -3,6 +3,7 @@
   import Consent from './lib/Consent.svelte';
   import Brain from './lib/Brain.svelte';
   import Chat from './lib/Chat.svelte';
+  import MethodExplainer from './lib/MethodExplainer.svelte';
   import Debug from './lib/Debug.svelte';
   import { loadAssets, cachedModel, downloadModel, clearModelCache } from './lib/data.js';
   import { FlyModel } from './lib/model.js';
@@ -41,8 +42,10 @@
   let tokenStates = [];
   let promptState = null;
   let selectedToken = $state(null);
+  let methodPage = $state(typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') === '/method');
 
   onMount(async () => {
+    if (methodPage) return;
     try {
       assets = await loadAssets();
       classOfModel = new Uint8Array(assets.meta.n_model);
@@ -68,6 +71,7 @@
   });
 
   onMount(() => {
+    if (methodPage) return;
     const onKey = (e) => {
       if (e.key === 'Escape') closeBrain();
       if (selectedToken == null) return;
@@ -294,6 +298,16 @@
   }
 </script>
 
+{#if methodPage}
+  <div class="method-page">
+    <header class="method-header">
+      <a class="method-back" href="/">← Live demo</a>
+      <div class="brand"><span class="logo">F</span><div class="model-name">Fly brain <span class="muted">Method</span></div></div>
+      <span class="method-header-note muted">Connectome · echo-state · readout</span>
+    </header>
+    <main class="method-main"><MethodExplainer /></main>
+  </div>
+{:else}
 <div class="page">
   {#if phase === 'consent' || phase === 'downloading' || phase === 'init'}
     <Consent {onAccept} progress={phase === 'consent' ? null : progress} {error} />
@@ -375,6 +389,7 @@
         <button class="new" onclick={onReset} disabled={busy}>+ New chat</button>
         <a href={'https://huggingface.co/' + MODEL_REPO} target="_blank" rel="noreferrer">Model</a>
         <a href={'https://huggingface.co/' + ONNX_REPO} target="_blank" rel="noreferrer">ONNX</a>
+        <a href="/method">Method</a>
         {#if phase === 'ready'}
           <button class="link" onclick={forget}>Clear cache</button>
         {/if}
@@ -399,6 +414,7 @@
     {/if}
   </section>
 </div>
+{/if}
 
 <style>
   .page { height: 100%; display: flex; min-height: 0; background: var(--bg); }
@@ -440,6 +456,13 @@
     display: flex; flex-direction: column;
     background: var(--bg);
   }
+  .method-page { min-height: 100%; background: var(--bg); color: var(--text); overflow: auto; }
+  .method-header { min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 8px clamp(18px, 4vw, 52px); border-bottom: 1px solid var(--line); background: var(--panel); }
+  .method-back { color: var(--muted); font-size: 13px; }
+  .method-back:hover { color: var(--text); text-decoration: none; }
+  .method-header .brand { position: absolute; left: 50%; transform: translateX(-50%); }
+  .method-header-note { font-size: 11px; }
+  .method-main { max-width: 1280px; margin: 0 auto; }
   header {
     flex-shrink: 0; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
     padding: 8px 18px; border-bottom: 1px solid var(--line); background: var(--panel);
@@ -464,5 +487,7 @@
     .page { flex-direction: column; height: auto; min-height: 100%; }
     .brain-pane { width: 100%; min-width: 0; flex: none; height: min(72vh, 740px); border-right: 0; border-bottom: 1px solid var(--line); }
     .main { min-height: 54vh; }
+    .method-header .brand { position: static; transform: none; }
+    .method-header-note { display: none; }
   }
 </style>
