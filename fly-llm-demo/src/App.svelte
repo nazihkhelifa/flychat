@@ -7,7 +7,7 @@
   import Debug from './lib/Debug.svelte';
   import { loadAssets, cachedModel, downloadModel, clearModelCache } from './lib/data.js';
   import { FlyModel } from './lib/model.js';
-  import { LOCAL_MODEL, MODEL_REPO, ONNX_REPO } from './lib/config.js';
+  import { LOCAL_MODEL } from './lib/config.js';
 
   const MODEL_CLASSES = ['cb_sensory', 'visual_projection', 'cb_intrinsic', 'ascending_neuron', 'descending_neuron'];
   const LIVE_STEP_MS = 320;
@@ -42,10 +42,10 @@
   let tokenStates = [];
   let promptState = null;
   let selectedToken = $state(null);
-  let methodPage = $state(typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') === '/method');
+  let demoPage = $state(typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') === '/demo');
 
   onMount(async () => {
-    if (methodPage) return;
+    if (!demoPage) return;
     try {
       assets = await loadAssets();
       classOfModel = new Uint8Array(assets.meta.n_model);
@@ -71,7 +71,7 @@
   });
 
   onMount(() => {
-    if (methodPage) return;
+    if (!demoPage) return;
     const onKey = (e) => {
       if (e.key === 'Escape') closeBrain();
       if (selectedToken == null) return;
@@ -298,10 +298,10 @@
   }
 </script>
 
-{#if methodPage}
+{#if !demoPage}
   <div class="method-page">
     <header class="method-header">
-      <a class="method-back" href="/">← Live demo</a>
+      <a class="method-back" href="/demo">Try it now →</a>
       <div class="brand"><span class="logo">F</span><div class="model-name">Fly brain <span class="muted">Method</span></div></div>
       <span class="method-header-note muted">Connectome · echo-state · readout</span>
     </header>
@@ -387,9 +387,7 @@
       </div>
       <div class="head-actions muted">
         <button class="new" onclick={onReset} disabled={busy}>+ New chat</button>
-        <a href={'https://huggingface.co/' + MODEL_REPO} target="_blank" rel="noreferrer">Model</a>
-        <a href={'https://huggingface.co/' + ONNX_REPO} target="_blank" rel="noreferrer">ONNX</a>
-        <a href="/method">Method</a>
+        <a class="method-link" href="/">Method</a>
         {#if phase === 'ready'}
           <button class="link" onclick={forget}>Clear cache</button>
         {/if}
@@ -456,10 +454,13 @@
     display: flex; flex-direction: column;
     background: var(--bg);
   }
-  .method-page { min-height: 100%; background: var(--bg); color: var(--text); overflow: auto; }
+  .method-page { height: 100%; background: var(--bg); color: var(--text); overflow: auto; }
   .method-header { min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 8px clamp(18px, 4vw, 52px); border-bottom: 1px solid var(--line); background: var(--panel); }
   .method-back { color: var(--muted); font-size: 13px; }
-  .method-back:hover { color: var(--text); text-decoration: none; }
+  .method-back { display: inline-flex; align-items: center; padding: 9px 15px; border-radius: 999px; background: #17181b; color: #fff; font-weight: 650; box-shadow: 0 5px 12px rgba(23,24,27,.16); }
+  .method-back:hover { color: #fff; background: #34363b; text-decoration: none; }
+  .method-link { display: inline-flex; align-items: center; padding: 7px 13px; border-radius: 999px; background: #17181b; color: #fff; font-weight: 650; }
+  .method-link:hover { background: #34363b; text-decoration: none; }
   .method-header .brand { position: absolute; left: 50%; transform: translateX(-50%); }
   .method-header-note { font-size: 11px; }
   .method-main { max-width: 1280px; margin: 0 auto; }
